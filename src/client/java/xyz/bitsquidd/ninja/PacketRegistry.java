@@ -5,6 +5,7 @@ import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NullMarked;
 import org.reflections.Reflections;
 
+import xyz.bitsquidd.ninja.handler.PacketCategory;
 import xyz.bitsquidd.ninja.handler.PacketHandler;
 
 import java.lang.reflect.Modifier;
@@ -58,6 +59,16 @@ public final class PacketRegistry {
         List<PacketHandler<?>> allHandlers = new ArrayList<>(handlers.values());
         allHandlers.sort(Comparator.comparing(PacketHandler::getFriendlyName));
         return allHandlers;
+    }
+
+    public static Map<PacketCategory, List<PacketHandler<?>>> getAllHandlersCategorised() {
+        Map<PacketCategory, List<PacketHandler<?>>> categorizedHandlers = new HashMap<>();
+        for (PacketHandler<?> handler : handlers.values()) {
+            for (PacketCategory category : handler.getCategories()) {
+                categorizedHandlers.computeIfAbsent(category, k -> new ArrayList<>()).add(handler);
+            }
+        }
+        return categorizedHandlers;
     }
 
     public static Set<Class<? extends Packet<?>>> getAllPacketClasses() {

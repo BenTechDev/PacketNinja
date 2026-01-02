@@ -1,6 +1,7 @@
 plugins {
     id 'fabric-loom' version "${loom_version}"
     id 'maven-publish'
+    id 'org.jetbrains.kotlin.jvm' version '2.3.0'
 }
 
 version = project.mod_version
@@ -12,6 +13,10 @@ base {
 
 repositories {
     mavenCentral()
+    maven {
+        name "noxcrewMaven"
+        url "https://maven.noxcrew.com/public"
+    }
 }
 
 loom {
@@ -36,6 +41,8 @@ dependencies {
 
     include(modImplementation("net.kyori:adventure-platform-fabric:6.7.0"))
     include(modImplementation("org.reflections:reflections:0.10.2"))
+
+    include(modImplementation("com.noxcrew.sheeplib:api:1.4.7+1.21.10"))
 
     include("org.javassist:javassist:3.30.2-GA")
 }

@@ -15,6 +15,8 @@ import xyz.bitsquidd.ninja.PacketInterceptorMod;
 import xyz.bitsquidd.ninja.PacketRegistry;
 import xyz.bitsquidd.ninja.format.PacketLogger;
 import xyz.bitsquidd.ninja.handler.PacketHandler;
+import xyz.bitsquidd.ninja.ui.DialogManager;
+import xyz.bitsquidd.ninja.ui.menus.PacketMenu;
 
 import java.util.List;
 
@@ -33,6 +35,7 @@ public class PacketInterceptionCommand {
         dispatcher.register(ClientCommandManager.literal("packets")
               .then(ClientCommandManager.literal("start").executes(PacketInterceptionCommand::startLogging))
               .then(ClientCommandManager.literal("stop").executes(PacketInterceptionCommand::stopLogging))
+              .then(ClientCommandManager.literal("menu").executes(PacketInterceptionCommand::openMenu))
               .then(ClientCommandManager.literal("filter")
                     .executes(PacketInterceptionCommand::listPackets)
                     .then(ClientCommandManager.argument("packetName", StringArgumentType.word())
@@ -65,6 +68,11 @@ public class PacketInterceptionCommand {
 
         sendBlank();
         sendMessage(Component.text("Stopped packet logging..."), ResponseType.ERROR);
+        return Command.SINGLE_SUCCESS;
+    }
+
+    private static int openMenu(CommandContext<FabricClientCommandSource> ctx) {
+        DialogManager.INSTANCE.open("packet_menu", new PacketMenu());
         return Command.SINGLE_SUCCESS;
     }
 

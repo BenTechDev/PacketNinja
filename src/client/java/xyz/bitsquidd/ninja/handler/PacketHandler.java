@@ -5,6 +5,8 @@ import org.jspecify.annotations.NullMarked;
 
 import xyz.bitsquidd.ninja.format.PacketInfoBundle;
 
+import java.util.List;
+
 @NullMarked
 public abstract class PacketHandler<T extends Packet<?>> {
     protected static final int MAX_DISPLAYED_ENTRIES = 5;
@@ -15,12 +17,21 @@ public abstract class PacketHandler<T extends Packet<?>> {
     protected final String friendlyName;
     protected final String description;
     protected final PacketType packetType;
+    protected final List<PacketCategory> categories;
 
     public PacketHandler(Class<T> packetClass, String friendlyName, String description, PacketType packetType) {
         this.packetClass = packetClass;
         this.friendlyName = friendlyName;
         this.description = description;
         this.packetType = packetType;
+        this.categories = List.of(PacketCategory.MISC);
+    }
+    public PacketHandler(Class<T> packetClass, String friendlyName, String description, PacketType packetType, List<PacketCategory> categories) {
+        this.packetClass = packetClass;
+        this.friendlyName = friendlyName;
+        this.description = description;
+        this.packetType = packetType;
+        this.categories = categories;
     }
 
     public final Class<T> getPacketClass() {
@@ -33,6 +44,10 @@ public abstract class PacketHandler<T extends Packet<?>> {
 
     public final String getDescription() {
         return description;
+    }
+
+    public final List<PacketCategory> getCategories() {
+        return categories;
     }
 
     public final boolean canHandle(Packet<?> packet) {
