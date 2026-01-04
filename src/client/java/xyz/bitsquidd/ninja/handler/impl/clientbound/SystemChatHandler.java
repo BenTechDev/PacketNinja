@@ -9,18 +9,20 @@ import com.mojang.serialization.JsonOps;
 
 import xyz.bitsquidd.ninja.format.PacketInfoBundle;
 import xyz.bitsquidd.ninja.format.PacketInfoSegment;
+import xyz.bitsquidd.ninja.handler.PacketCategory;
 import xyz.bitsquidd.ninja.handler.PacketHandler;
 import xyz.bitsquidd.ninja.handler.PacketType;
 
 import java.util.List;
 
-public class SystemChatHandler extends PacketHandler<@NotNull ClientboundSystemChatPacket>  {
+public class SystemChatHandler extends PacketHandler<@NotNull ClientboundSystemChatPacket> {
     public SystemChatHandler() {
         super(
-                ClientboundSystemChatPacket.class,
-                "SystemChat",
-                "Handles system chat messages",
-                PacketType.CLIENTBOUND
+              ClientboundSystemChatPacket.class,
+              "SystemChat",
+              "Handles system chat messages",
+              PacketType.CLIENTBOUND,
+              List.of(PacketCategory.CHAT)
         );
     }
 
@@ -31,14 +33,14 @@ public class SystemChatHandler extends PacketHandler<@NotNull ClientboundSystemC
         final var jsonString = gson.toJson(jsonElement);
 
         return PacketInfoBundle.of(
-                packetType,
-                Component.text(friendlyName),
-                List.of(
-                        PacketInfoSegment.of(
-                              Component.text("JSON Message"),
-                              Component.text(jsonString)
-                        )
-                )
+              packetType,
+              Component.text(friendlyName),
+              List.of(
+                    PacketInfoSegment.of(
+                          Component.text("JSON Message"),
+                          Component.text(jsonString)
+                    )
+              )
         );
     }
 }

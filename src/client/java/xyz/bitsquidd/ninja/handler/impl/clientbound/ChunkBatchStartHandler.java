@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 import xyz.bitsquidd.ninja.format.PacketInfoBundle;
 import xyz.bitsquidd.ninja.format.PacketInfoSegment;
+import xyz.bitsquidd.ninja.handler.PacketCategory;
 import xyz.bitsquidd.ninja.handler.PacketHandler;
 import xyz.bitsquidd.ninja.handler.PacketType;
 
@@ -19,7 +20,8 @@ public class ChunkBatchStartHandler extends PacketHandler<@NotNull ClientboundCh
               ClientboundChunkBatchStartPacket.class,
               "ChunkBatchStart",
               "Handles ClientboundChunkBatchStartPacket.",
-              PacketType.CLIENTBOUND
+              PacketType.CLIENTBOUND,
+              List.of(PacketCategory.WORLD)
         );
     }
 

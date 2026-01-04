@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import xyz.bitsquidd.ninja.format.FormatHelper;
 import xyz.bitsquidd.ninja.format.PacketInfoBundle;
 import xyz.bitsquidd.ninja.format.PacketInfoSegment;
+import xyz.bitsquidd.ninja.handler.PacketCategory;
 import xyz.bitsquidd.ninja.handler.PacketHandler;
 import xyz.bitsquidd.ninja.handler.PacketType;
 
@@ -19,7 +20,8 @@ public class ContainerSetSlotHandler extends PacketHandler<@NotNull ClientboundC
               ClientboundContainerSetSlotPacket.class,
               "ContainerSetSlot",
               "Handles setting a slot in a container.",
-              PacketType.CLIENTBOUND
+              PacketType.CLIENTBOUND,
+              List.of(PacketCategory.INVENTORY)
         );
     }
 
